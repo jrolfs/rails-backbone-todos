@@ -24,10 +24,4 @@ var todo = new Todo({
 	content: "A test todo from Backbone"
 })
 
-todos.add(todo)
-
 todo.save();
-
-todo.save({content:"will you update?"});
-
-todo.destroy();
