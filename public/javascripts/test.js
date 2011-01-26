@@ -1,10 +1,10 @@
 var Todo = Backbone.Model.extend({
-	url: 'http://localhost:3000/todos'
+	url: 'http://jrbackbone.heroku.com/todos'
 });
 
 var TodoStore = Backbone.Collection.extend({
   model: Todo,
-    url: 'http://localhost:3000/todos'
+    url: 'http://jrbackbone.heroku.com/todos'
 });
 
 var todos = new TodoStore;
