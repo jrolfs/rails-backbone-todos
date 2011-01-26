@@ -1,10 +1,12 @@
+var serviceURL = 'http://localhost:3000/todos';
+
 var Todo = Backbone.Model.extend({
-	url: 'http://jrbackbone.heroku.com/todos'
+	url: serviceURL
 });
 
 var TodoStore = Backbone.Collection.extend({
   model: Todo,
-    url: 'http://jrbackbone.heroku.com/todos'
+  url: serviceURL
 });
 
 var todos = new TodoStore;
@@ -22,4 +24,10 @@ var todo = new Todo({
 	content: "A test todo from Backbone"
 })
 
+todos.add(todo)
+
 todo.save();
+
+todo.save({content:"will you update?"});
+
+todo.destroy();

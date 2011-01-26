@@ -1,91 +1,68 @@
 class TodosController < ApplicationController
-  # GET /todos
-  # GET /todos.xml
-  def index
-    @todos = Todo.all
+	# GET /todos
+	def index
+		@todos = Todo.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @todos }
-			format.json { render :json => @todos }
-    end
-  end
+		render :json => @todos
+	end
 
-  # GET /todos/1
-  # GET /todos/1.xml
-  def show
-    @todo = Todo.find(params[:id])
+	# GET /todos/1
+	def show
+		@todo = Todo.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @todo }
-			format.json { render :json => @todo }
-    end
-  end
+		render :json => @todo
+	end
 
-  # GET /todos/new
-  # GET /todos/new.xml
-  def new
-    @todo = Todo.new
+	# GET /todos/new
+	def new
+		@todo = Todo.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @todo }
-			format.json { render :json => @todo }
-    end
-  end
+		render :json => @todo
+	end
 
-  # GET /todos/1/edit
-  def edit
-    @todo = Todo.find(params[:id])
-  end
+	# GET /todos/1/edit
+	def edit
+		@todo = Todo.find(params[:id])
+	end
 
-  # POST /todos
-  # POST /todos.xml
-  def create
-    @todo = Todo.new(JSON.parse(params[:todo]))
+	# POST /todos
+	def create
+		
+		@todo = Todo.new do |param|
+			param.content = params[:content]
+			param.order = params[:order]
+			param.done = params[:done]
+		end
 
-    respond_to do |format|
-      if @todo.save
-        format.html { redirect_to(@todo, :notice => 'Todo was successfully created.') }
-        format.xml  { render :xml => @todo, :status => :created, :location => @todo }
-        format.json  { render :json => @todo, :status => :created, :location => @todo }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @todo.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @todo.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+		if @todo.save
+			render :json => @todo, :status => :created, :location => @todo
+		else
+			render :json => @todo.errors, :status => :unprocessable_entity
+		end
+	end
 
-  # PUT /todos/1
-  # PUT /todos/1.xml
-  def update
-    @todo = Todo.find(params[:id])
+	# PUT /todos/1
+	def update
+		@todo = Todo.find(params[:id])
 
-    respond_to do |format|
-      if @todo.update_attributes(JSON.parse(params[:todo]))
-        format.html { redirect_to(@todo, :notice => 'Todo was successfully updated.') }
-        format.xml  { head :ok }
-        format.json  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @todo.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @todo.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+		todo.content = params[:content]
+		todo.order = params[:order]
+		todo.done = params[:down]
 
-  # DELETE /todos/1
-  # DELETE /todos/1.xml
-  def destroy
-    @todo = Todo.find(params[:id])
-    @todo.destroy
+		if @todo.update_attributes(todo)
+			head :ok
+		else
+			render :json => @todo.errors, :status => :unprocessable_entity
+		end
+	end
 
-    respond_to do |format|
-      format.html { redirect_to(todos_url) }
-      format.xml  { head :ok }
-      format.json  { head :ok }
-    end
-  end
+	# DELETE /todos/1
+	# DELETE /todos/1.xml
+	def destroy
+		@todo = Todo.find(params[:id])
+		
+		if @todo.destroy
+			head :ok
+		end
+	end
 end
