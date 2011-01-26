@@ -4,7 +4,7 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.all
 
-    respond_to do 
+    respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @todos }
 			format.json { render :json => @todos }
