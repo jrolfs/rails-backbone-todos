@@ -18,6 +18,8 @@ todos.fetch({
 	}	
 });
 
-var todo = new Todo;
+var todo = new Todo({
+	content: "A test todo from Backbone"
+})
 
-todo.save({content:"Test new Todo from Backbone"});
+todo.save();

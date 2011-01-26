@@ -4,7 +4,7 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.all
 
-    respond_to do |format|
+    respond_to do 
       format.html # index.html.erb
       format.xml  { render :xml => @todos }
 			format.json { render :json => @todos }
@@ -43,7 +43,7 @@ class TodosController < ApplicationController
   # POST /todos
   # POST /todos.xml
   def create
-    @todo = Todo.new(params[:todo])
+    @todo = Todo.new(JSON.parse(params[:todo]))
 
     respond_to do |format|
       if @todo.save
@@ -64,7 +64,7 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
 
     respond_to do |format|
-      if @todo.update_attributes(params[:todo])
+      if @todo.update_attributes(JSON.parse(params[:todo]))
         format.html { redirect_to(@todo, :notice => 'Todo was successfully updated.') }
         format.xml  { head :ok }
         format.json  { head :ok }
