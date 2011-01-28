@@ -35,7 +35,7 @@ class TodosController < ApplicationController
 		end
 
 		if @todo.save
-			render :json => @todo, :status => :created, :location => @todo
+			render :json => @todo, :status => :created, :location => @todo, :id => @todo.id
 		else
 			render :json => @todo.errors, :status => :unprocessable_entity
 		end

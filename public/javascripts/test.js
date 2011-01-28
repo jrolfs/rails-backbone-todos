@@ -1,4 +1,5 @@
-var serviceURL = 'http://localhost:3000/todos';
+var serviceURL = "http://jrbackbone.heroku.com/todos";
+//var serviceURL = 'http://localhost:3000/todos';
 
 var Todo = Backbone.Model.extend({
 	url: serviceURL
@@ -25,3 +26,5 @@ var todo = new Todo({
 })
 
 todo.save();
+
+todo.save({content:"update"})
