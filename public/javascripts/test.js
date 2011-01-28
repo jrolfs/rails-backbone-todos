@@ -1,5 +1,5 @@
-var serviceURL = "http://jrbackbone.heroku.com/todos";
-//var serviceURL = 'http://localhost:3000/todos';
+//ar serviceURL = "http://jrbackbone.heroku.com/todos";
+var serviceURL = 'http://localhost:3000/todos';
 
 var Todo = Backbone.Model.extend({
 	url: serviceURL
