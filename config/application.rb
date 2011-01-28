@@ -40,6 +40,6 @@ module Backbone
     config.filter_parameters += [:password]
     
     # This can be used to explicitly define default javascripts
-    #config.action_view.javascript_expansions[:defaults] = ['jquery-1.4.4', 'jquery-ujs/src/rails']
+    config.action_view.javascript_expansions[:todo] = ['view/todo', 'model/todo', 'collection/todo']
   end
 end

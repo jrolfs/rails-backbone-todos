@@ -23,13 +23,13 @@ todos.fetch({
 */
 
 var todo = new Todo({
-	content: "A test todo from Backbone"
+	content: "A test todo from Backbone";
 })
 
 todo.save({}, {
 	success: function(model, response){
-		alert(todo.get("id"));
-		todo.save({content:"update"});
+		alert(todo.get("url"));
+		todo.save({done:true});
 	}, 
 	error: function(model, response){
 		alert("error");
