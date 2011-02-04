@@ -6,7 +6,11 @@ $(function(){
   // Our basic **Todo** model has `content`, `order`, and `done` attributes.
   window.Todo = Backbone.Model.extend({
 
-	url: '/todos',
+	url: function() {
+	      var base = 'todos';
+	      if (this.isNew()) return base;
+	      return base + (base.charAt(base.length - 1) == '/' ? '' : '/') + this.id;
+	},
 
 	// If you don't provide a todo, one will be provided for you.
 	EMPTY: "empty todo...",

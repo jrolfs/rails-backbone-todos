@@ -45,11 +45,7 @@ class TodosController < ApplicationController
 	def update
 		@todo = Todo.find(params[:id])
 
-		todo.content = params[:content]
-		todo.order = params[:order]
-		todo.done = params[:down]
-
-		if @todo.update_attributes(todo)
+		if @todo.update_attributes(:content => params[:content], :order => params[:order], :done => params[:done])
 			head :ok
 		else
 			render :json => @todo.errors, :status => :unprocessable_entity
