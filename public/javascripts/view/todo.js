@@ -6,6 +6,8 @@ $(function(){
   // The DOM element for a todo item...
   window.TodoView = Backbone.View.extend({
 
+	tagName: "li",
+
     // The DOM events specific to an item.
     events: {
       "click .check"              : "toggleDone",
