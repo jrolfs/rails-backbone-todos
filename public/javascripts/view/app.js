@@ -10,9 +10,6 @@ $(function(){
     // the App already present in the HTML.
     el: $("#todoapp"),
 
-    // Our template for the line of statistics at the bottom of the app.
-    statsTemplate: _.template($('#stats-template').html()),
-
     // Delegated events for creating new items, and clearing completed ones.
     events: {
       "keypress #new-todo":  "createOnEnter",
@@ -39,10 +36,12 @@ $(function(){
     // of the app doesn't change.
     render: function() {
       var done = Todos.done().length;
-      this.$('#todo-stats').html(this.statsTemplate({
+      this.$('#todo-stats').html(ich.app({
         total:      Todos.length,
         done:       Todos.done().length,
-        remaining:  Todos.remaining().length
+        remaining:  Todos.remaining().length,
+		donep: 		function(){return Todos.done().length > 1},
+		remainingp: function(){return Todos.remaining().length > 1} 
       }));
     },
 

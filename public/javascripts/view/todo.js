@@ -6,44 +6,30 @@ $(function(){
   // The DOM element for a todo item...
   window.TodoView = Backbone.View.extend({
 
-    //... is a list tag.
-    tagName:  "li",
-
-    // Cache the template function for a single item.
-    template: _.template($('#item-template').html()),
-
     // The DOM events specific to an item.
     events: {
       "click .check"              : "toggleDone",
       "dblclick div.todo-content" : "edit",
       "click span.todo-destroy"   : "clear",
-      "keypress .todo-input"      : "updateOnEnter"
+      "keypress .todo-input"      : "updateOnEnter",
+	  "blur .todo-input"		  : "close"
     },
 
     // The TodoView listens for changes to its model, re-rendering. Since there's
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function() {
-      _.bindAll(this, 'render', 'close');
+      _.bindAll(this, 'render');
       this.model.bind('change', this.render);
       this.model.view = this;
+
+	  this.input = this.$('.todo-input');
     },
 
     // Re-render the contents of the todo item.
     render: function() {
-      $(this.el).html(this.template(this.model.toJSON()));
-      this.setContent();
+      $(this.el).html(ich.todo(this.model.toJSON()));
       return this;
-    },
-
-    // To avoid XSS (not that it would be harmful in this particular app),
-    // we use `jQuery.text` to set the contents of the todo item.
-    setContent: function() {
-      var content = this.model.get('content');
-      this.$('.todo-content').text(content);
-      this.input = this.$('.todo-input');
-      this.input.bind('blur', this.close);
-      this.input.val(content);
     },
 
     // Toggle the `"done"` state of the model.

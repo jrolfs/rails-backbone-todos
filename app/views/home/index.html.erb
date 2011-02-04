@@ -1,6 +1,6 @@
 <% content_for :stylesheets do stylesheet_link_tag "todos" end %>
-<% content_for :javascripts do javascript_include_tag "view/app" end %>
 <% content_for :javascripts do javascript_include_tag :todo end %>
+<% content_for :javascripts do javascript_include_tag "view/app" end %>
 
 <% content_for :content do %>
 
@@ -39,5 +39,39 @@
 	<br /> 
 	<a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a> 
 </div>
+
+<!-- mustache.js templates -->
+
+<script id="todo" type="text/html">
+<li>
+	<div class="todo{{#done}} done{{/done}}">
+		<div class="display">
+			<input class="check" type="checkbox" {{#done}}checked="checked"{{/done}} />
+			<div class="todo-content">{{content}}</div>
+			<span class="todo-destroy"></span>
+		</div>
+		<div class="edit">
+			<input class="todo-input" type="text" value="{{content}}" />
+		</div>
+	</div>
+</li>
+</script>
+
+<script id="app" type="text/html">
+{{#total}}
+	<span class="todo-count">
+		<span class="number">{{remaining}}</span>
+		<span class="word">{{^remainingp}}item{{/remainingp}}{{#remainingp}}items{{/remainingp}}</span> left.
+	</span>
+{{/total}}
+{{#done}}
+	<span class="todo-clear">
+		<a href="#">
+			Clear <span class="number-done">{{done}}</span>
+			completed <span class="word-done">{{^donep}}item{{/donep}}{{#donep}}items{{/donep}}</span>
+		</a>
+	</span>
+{{/done}}
+</script>
 
 <% end %>
